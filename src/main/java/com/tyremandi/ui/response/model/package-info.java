@@ -1,0 +1,1 @@
+package com.tyremandi.ui.response.model;
