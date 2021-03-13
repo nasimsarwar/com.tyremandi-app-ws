@@ -1,0 +1,570 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "This pages documents Photo app RESTful Web Service endpoints",
+		"version": "1.0",
+		"title": "Photo app RESTful Web Service documentation",
+		"termsOfService": "http://www.appsdeveloperblog.com/service.html",
+		"contact": {
+			"name": "Nasim Sarwar",
+			"url": "http://www.tyremandi.com",
+			"email": "nasim@appsdeveloperblog.com"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0"
+		}
+	},
+	"host": "localhost:8080",
+	"basePath": "/tyremandi",
+	"tags": [
+		{
+			"name": "user-controller",
+			"description": "User Controller"
+		}
+	],
+	"schemes": [
+		"https",
+		"http"
+	],
+	"paths": {
+		"/users": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"summary": "getUsers",
+				"operationId": "getUsersUsingGET",
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "limit",
+						"required": false,
+						"type": "integer",
+						"default": 25,
+						"format": "int32"
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "page",
+						"required": false,
+						"type": "integer",
+						"default": 0,
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/UserRest"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"deprecated": false
+			},
+			"post": {
+				"tags": [
+					"user-controller"
+				],
+				"summary": "createUser",
+				"operationId": "createUserUsingPOST",
+				"consumes": [
+					"application/xml",
+					"application/json"
+				],
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "userDetails",
+						"description": "userDetails",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/UserDetailsRequestModel"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/UserRest"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/users/email-verification": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"summary": "verifyEmailToken",
+				"operationId": "verifyEmailTokenUsingGET",
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "token",
+						"in": "query",
+						"description": "token",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OperationStatusModel"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/users/password-reset-request": {
+			"post": {
+				"tags": [
+					"user-controller"
+				],
+				"summary": "requestRest",
+				"operationId": "requestRestUsingPOST",
+				"consumes": [
+					"application/xml",
+					"application/json"
+				],
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "passwordResetRequestModel",
+						"description": "passwordResetRequestModel",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/PasswordResetRequestModel"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OperationStatusModel"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"summary": "getUser",
+				"operationId": "getUserUsingGET",
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/UserRest"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"deprecated": false
+			},
+			"put": {
+				"tags": [
+					"user-controller"
+				],
+				"summary": "updateUser",
+				"operationId": "updateUserUsingPUT",
+				"consumes": [
+					"application/xml",
+					"application/json"
+				],
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"in": "body",
+						"name": "userDetails",
+						"description": "userDetails",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/UserDetailsRequestModel"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/UserRest"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"deprecated": false
+			},
+			"delete": {
+				"tags": [
+					"user-controller"
+				],
+				"summary": "deleteUser",
+				"operationId": "deleteUserUsingDELETE",
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/OperationStatusModel"
+						}
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/users/{id}/addresss": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"summary": "getUserAddresses",
+				"operationId": "getUserAddressesUsingGET",
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "id",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/AddressesRest"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"/users/{id}/addresss/{addressId}": {
+			"get": {
+				"tags": [
+					"user-controller"
+				],
+				"summary": "getUserAddress",
+				"operationId": "getUserAddressUsingGET",
+				"produces": [
+					"application/xml",
+					"application/json"
+				],
+				"parameters": [
+					{
+						"name": "addressId",
+						"in": "path",
+						"description": "addressId",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/AddressesRest"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"deprecated": false
+			}
+		}
+	},
+	"definitions": {
+		"AddressRequestModel": {
+			"type": "object",
+			"properties": {
+				"city": {
+					"type": "string"
+				},
+				"country": {
+					"type": "string"
+				},
+				"postalCode": {
+					"type": "string"
+				},
+				"streetName": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				}
+			},
+			"title": "AddressRequestModel"
+		},
+		"AddressesRest": {
+			"type": "object",
+			"properties": {
+				"addressId": {
+					"type": "string"
+				},
+				"city": {
+					"type": "string"
+				},
+				"country": {
+					"type": "string"
+				},
+				"links": {
+					"$ref": "#/definitions/Links"
+				},
+				"postalCode": {
+					"type": "string"
+				},
+				"streetName": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				}
+			},
+			"title": "AddressesRest"
+		},
+		"Links": {
+			"type": "object",
+			"properties": {
+				"empty": {
+					"type": "boolean"
+				}
+			},
+			"title": "Links"
+		},
+		"OperationStatusModel": {
+			"type": "object",
+			"properties": {
+				"operationName": {
+					"type": "string"
+				},
+				"operationResult": {
+					"type": "string"
+				}
+			},
+			"title": "OperationStatusModel"
+		},
+		"PasswordResetRequestModel": {
+			"type": "object",
+			"properties": {
+				"email": {
+					"type": "string"
+				}
+			},
+			"title": "PasswordResetRequestModel"
+		},
+		"UserDetailsRequestModel": {
+			"type": "object",
+			"properties": {
+				"addresses": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/AddressRequestModel"
+					}
+				},
+				"email": {
+					"type": "string"
+				},
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"mobileNumber": {
+					"type": "string"
+				},
+				"password": {
+					"type": "string"
+				}
+			},
+			"title": "UserDetailsRequestModel"
+		},
+		"UserRest": {
+			"type": "object",
+			"properties": {
+				"addresses": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/AddressesRest"
+					}
+				},
+				"email": {
+					"type": "string"
+				},
+				"firstName": {
+					"type": "string"
+				},
+				"lastName": {
+					"type": "string"
+				},
+				"mobileNumber": {
+					"type": "string"
+				},
+				"userId": {
+					"type": "string"
+				}
+			},
+			"title": "UserRest"
+		}
+	}
+}</Json>
